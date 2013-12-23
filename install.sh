@@ -5,7 +5,7 @@ apt-get update
 
 # Install some necessities
 echo "Installing necessities"
-apt-get install -y gcc make git mercurial htop postgresql nginx python python3
+apt-get install -y gcc make git mercurial htop postgresql nginx python python3 golang-go
 
 # Setup my vim preferences
 echo "Setting up vim"
@@ -14,9 +14,23 @@ cp ./dotfiles/.vimrc ~/.vimrc
 cp -r ./dotfiles/.vim ~/
 rm -rf dotfiles
 
-# Install go from source; Packages tend to be out of date
-# and go development is still going very fast.
-echo "Installing golang"
-hg clone -u release https://code.google.com/p/go
-cd go/src
-./all.bash
+# Set the default shell
+sed 's/sh/bash/g' /etc/default/useradd > /etc/default/useradd
+
+# Set GOROOT globally
+echo 'export GOROOT=/usr/lib/go' >> /etc/bash.bashrc
+
+# Setup a user under which everything will run
+echo "Creating production user"
+useradd prod
+mkdir /home/prod
+chown prod:prod /home/prod
+
+su prod
+cd /home/prod
+mkdir go
+echo "export GOPATH=$GOPATH:/home/prod/go" >> ~/.bashrc
+. ~/.bashrc
+cd go
+go get github.com/robfig/revel/revel
+exit
