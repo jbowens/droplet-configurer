@@ -30,7 +30,18 @@ su prod
 cd /home/prod
 mkdir go
 echo "export GOPATH=$GOPATH:/home/prod/go" >> ~/.bashrc
+echo "export PATH=$PATH:/home/prod/go/bin" >> ~/.bashrc
 . ~/.bashrc
 cd go
 go get github.com/robfig/revel/revel
+go get github.com/lib/pq
 exit
+
+# Setup postgres user
+echo "Setting up production postgres user"
+su postgres
+cd
+echo "CREATE ROLE prod LOGIN" | psql
+echo "CREATE DATABASE prod OWNER=prod" | psql
+exit
+
