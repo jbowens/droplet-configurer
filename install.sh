@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Update aptitude
+apt-get update
+
 # Install some necessities
 echo "Installing necessities"
 apt-get install -y gcc make git mercurial htop postgresql nginx python python3
