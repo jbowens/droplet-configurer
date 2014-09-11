@@ -5,7 +5,7 @@ apt-get update
 
 # Install some necessities
 echo "Installing necessities"
-apt-get install -y gcc make git mercurial htop postgresql nginx python python3 golang-go python-pip python-dev
+apt-get install -y gcc make git mercurial htop postgresql nginx python python3 golang-go python-pip python-dev mysql
 
 # Setup my vim preferences
 echo "Setting up vim"
