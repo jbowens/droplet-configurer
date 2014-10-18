@@ -21,7 +21,7 @@ sed 's/sh/bash/g' /etc/default/useradd > /etc/default/useradd
 echo 'export GOROOT=/usr/lib/go' >> /etc/bash.bashrc
 
 # Setup a user under which everything will run
-echo "Creating production user"
+echo "Creating user"
 useradd prod
 mkdir /home/prod
 chown prod:prod /home/prod
@@ -38,7 +38,7 @@ go get github.com/lib/pq
 exit
 
 # Setup postgres user
-echo "Setting up production postgres user"
+echo "Setting up postgres user"
 su postgres
 cd
 echo "CREATE ROLE prod LOGIN" | psql
